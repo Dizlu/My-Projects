@@ -1,0 +1,70 @@
+import random
+import time
+
+def displayIntro():
+	print ('You are a brave knight who dared to enter the Depths of Schrodinger,')
+	print ('for those who stayed in the city, just around the corner of the entrance- you,')
+	print ('my friend, are both dead and alive. So you are scouting those caves for dragons,')
+	print ('and out of nowhere after a while you see two entrances nearby each other...')
+	print ' '
+	time.sleep(1)
+	print ('Face your destiny and meet one of the dragons in his lair!')
+
+
+def choice_of_cave():
+	choice = ' '
+	turn = 0
+	while choice != 1 and choice != 2:
+		if turn > 0:
+			print ' '
+			print "Choose a valid option, you filthy scum!"
+			choice = int(raw_input(('Make your mind! Which one do you choose? 1 or 2? ')))  # Think about capitalizin raw_input
+			turn += 1
+		else:
+			choice = int(raw_input(('Which one do you choose? 1 or 2? ')))
+			turn += 1
+	return choice
+
+def checkCave(chosen_cave):
+	friendlyCave = random.randint(1, 2)
+	print ('You approach the cave...')
+	time.sleep(2)
+	if friendlyCave == chosen_cave:
+		print 'It is cold and windy...'
+		time.sleep(2)
+		print 'A large, beautiful dragon waits for you on his treasures, he opens his jaws and...'
+		time.sleep(2)
+		print (' ')
+		print "Gives you his treasure! [vomits on you!]"
+		print " "
+	else:
+		print ('It is extremely hot in here...')
+		print ('A litle hatchling looks at you with boredom, opens his jaws and...')
+		print "Fries you down in one fire breath!"
+		print " "
+
+
+def main():
+	playagain = True
+	while playagain == True:
+		displayIntro()
+		caveNumber = choice_of_cave()
+		checkCave(caveNumber)
+		choice = str(raw_input("Do you want to play again? [y / n]: "))
+		if choice == 'n':
+			playagain = False
+			print " "
+			print "Good luck somewhere else fella!"
+		else:
+			print ("Type something valid!")
+			choice = str(raw_input("Last chance fancy pants! Do you want to play again? [y / n]: "))
+			if choice == 'n':
+				playagain = False
+				print 'Bye!'
+			elif choice == 'y':
+				print ' '
+			else:
+				playagain = False
+				print 'Oh, very well *headshots you*'
+
+main()
