@@ -27,9 +27,9 @@ def inputPlayerLetter():
 
 def whoGoesFirst():
 	if random.randint(0, 1) == 0:
-		return 'computer'
+		return 'Komputer'
 	else:
-		return 'player'
+		return 'Gracz'
 
 def playAgain():
 	return raw_input('Chcesz zagrac jescze raz? (yes/ no) ').startswith('y')
@@ -118,7 +118,8 @@ while True:
 	theBoard = [' '] * 10
 	playerLetter, computerLetter = inputPlayerLetter()
 	turn = whoGoesFirst()
-	print('The %s will go first' %(turn))
+	print(' ')
+	print(' ' + turn + ' pojdzie pierwszy.')
 
 	while gameisPlaying == True:
 		if turn == 'player':
@@ -141,7 +142,6 @@ while True:
 		else:
 			move = getComputerMove(theBoard, computerLetter)
 			if move == None:  #do znalezienia
-				print('Tie, motherfucker!')
 				break
 			makeMove(theBoard, computerLetter, move)
 
