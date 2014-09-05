@@ -88,3 +88,41 @@ def getValidMoves(board, tile):
 				validMoves.append([x, y])
 	return validMoves
 
+def getScoreofBoard(board):
+	xscore = 0
+	oscore = 0
+	for x in range(8):
+		for y in range(8):
+			if borad[x][y] == 'X':
+				xscore += 1
+			if board[x][y] == 'O':
+				oscore += 1
+	return {'X': xscore, 'O': oscore}
+
+def enterPlayerTile():
+	tile = ''
+	while not(tile == 'X' or tile == 'O'):
+		tile = raw_input('Do you want to be X or O?' ).upper()
+
+	if tile == 'X':
+		return ['X', 'O']
+	else:
+		return ['O', 'X']
+
+def whoGoesFirst():
+	if random.randint(0, 1) == 0:
+		return 'computer'
+	else:
+		return 'player'
+
+def playAgain():
+	return raw_input('Do you want to play again? (yes or no) ').lower.startswith('y')
+
+def makeMove(board, tile, xstart, ystart):
+	tilesToFlip = isValidMove(board, tile, xstart, ystart)
+
+	if tilesToFlip == False:
+		return False
+
+	board[xstart][ystart] = tile
+	 
