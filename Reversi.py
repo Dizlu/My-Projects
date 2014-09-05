@@ -56,4 +56,35 @@ def isValidMove(board, tile, xstart, ystart):
 		y += ydirection
 		if not isOnBoard(x, y):
 			continue
-			
+		if board[x][y] == tile:
+			while True:
+				x -= xdirection
+				y -= ydirection
+				if x == xstart and y == ystart:
+					break
+				tilesToFlip.append([x][y])
+
+	board[xstart][ystart] = ' '
+	if len(tilesToFlip) == 0:
+		return False
+	return tilesToFlip
+
+def isOnBoard(x, y):
+	return x >= 0 and x <= 7 and y >= 0 and y <= 7
+
+def getBoardWithValidMoves(board, tile):
+	dupeBoard = getBoardCopy(board)
+
+	for x, y in getValidMoves(dupeBoard, tile):
+		dupeBoard[x][y] = ' '
+	return dupeBoard
+
+def getValidMoves(board, tile):
+	validMoves = []
+
+	for x in range(8):
+		for y in range(8):
+			if isValidMove(board, tile, x, y) != False:
+				validMoves.append([x, y])
+	return validMoves
+
