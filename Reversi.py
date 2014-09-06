@@ -125,4 +125,38 @@ def makeMove(board, tile, xstart, ystart):
 		return False
 
 	board[xstart][ystart] = tile
-	 
+	for x, y in tilesToFlip:
+		board[x][y] = tile
+	return True
+
+def getBoardCopy(board):
+	dupeBoard = getNewBoard()
+
+	for x in range(8):
+		for y in range(8):
+			dupeBoard[x][y] = board[x][y]
+
+	return dupeBoard
+
+def isOnCorner(x, y):
+	return (x == 0 and y == 0) or (x == 7 and y == 0) or (x == 0 and y == 7) or (x == 7 and y == 7)
+
+def getPlayerMove(board, playerTile):
+	DIGITS1TO8 = '1 2 3 4 5 6 7 8'.split()
+
+	while True:
+		move = raw_input('Enter your move or type quir to end the game, or hints to turn off/ on hints! ').lower()
+		if move == 'quit':
+			return 'quit'
+		if move == 'hints':
+			return 'hints'
+
+		if len(move) == 2 and move[0] in DIGITS1TO8 and move[1] in DIGITS1TO8:
+			x = int(move[0]) - 1
+			y = int(move[1]) - 1
+			if isValidMove(board, playerTile, x, y) == False:
+				continue
+			else:
+				break
+
+		
