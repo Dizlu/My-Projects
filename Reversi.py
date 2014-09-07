@@ -175,8 +175,12 @@ def getComputerMove(board, computerTile):
 		for x, y in possibleMoves:
 			dupeBoard = getBoardCopy(board)
 			makeMove(dupeBoard, computerTile,x , y)
-			score = getSCoreOfBoard(dupeBoard)[computerTile]
+			score = getScoreOfBoard(dupeBoard)[computerTile]
 			if score > bestScore:
 				bestMove = [x, y]
 				bestScore = score
 		return bestMove
+
+def showPoints(playerTile, computerTile):
+	scores = getScoreofBoard(mainBoard)
+	print('You have %s points. The computer has %s points.' % (scores[playerTile], scores[computerTile]))
