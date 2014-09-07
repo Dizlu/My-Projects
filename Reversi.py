@@ -76,7 +76,7 @@ def getBoardWithValidMoves(board, tile):
 	dupeBoard = getBoardCopy(board)
 
 	for x, y in getValidMoves(dupeBoard, tile):
-		dupeBoard[x][y] = ' '
+		dupeBoard[x][y] = '.'
 	return dupeBoard
 
 def getValidMoves(board, tile):
@@ -184,3 +184,54 @@ def getComputerMove(board, computerTile):
 def showPoints(playerTile, computerTile):
 	scores = getScoreofBoard(mainBoard)
 	print('You have %s points. The computer has %s points.' % (scores[playerTile], scores[computerTile]))
+
+
+print('Welcome to Reversi!')
+
+while True:
+	mainBoard = getNewBoard()
+	resetBoard(mainBoard)
+	playerTile, computerTile = enterPlayerTile()
+	showHints = False
+	turn = whoGoesFirst()
+	print('The' + turn + ' will go first.')
+	while True:
+		if 'turn' == 'player':
+			if showHints:
+				validMovesBoard = getBoardWithValidMoves(mainBoard, playerTile)
+				drawBoard(validMovesBoard)
+			else:
+				drawBoard(mainBoard)
+			showPoints(playerTile, computerTile)
+			move = getPlayerMove(mainBoard, playerTile)
+			if move == 'quit':
+				print('Thanks for playing!')
+				sys.exit()
+			elif move == 'hints':
+				showHints = not showHints
+				continue
+			else:
+				makeMove(mainBoard, playerTile, move[0], move[1])
+			if getValidMoves(mainBoard, computerTile) == []:
+				break
+			else:
+				turn = 'computer'
+		else:
+			drawBoard(mainBoard)
+			showPoints(playerTile, computerTile)
+			input('Press Enter to see the computer\'s move.')
+			if x, y = getComputerMove(mainBoard, playerTile) == []:
+				break
+			else:
+				turn == 'player'
+
+	drawBoard(mainBoard)
+	scores = getScoreofBoard(mainBoard)
+	print('X scored %s points. O scored %s points.' % (scores['X'], scores['O']))
+	if scored[playerTile] > scores[computerTile]:
+		print('You beat the computer by %s point! Congratulations!' % (scores[playerTile] - scores[computerTile]))
+	elif scores[playerTile] < scores[computerTile]:
+		print('You lost. The computer beat you by %s points.') % (scores[computerTile]) - scores[playerTile]))
+	else:
+		print('The game ended in a tie!')
+
