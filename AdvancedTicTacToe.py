@@ -122,7 +122,7 @@ while True:
 	print(' ' + turn + ' pojdzie pierwszy.')
 
 	while gameisPlaying == True:
-		if turn == 'player':
+		if turn == 'Gracz':
 			drawBoard(theBoard)
 			move = getPlayerMove(theBoard)
 			makeMove(theBoard, playerLetter, move)
@@ -137,7 +137,7 @@ while True:
 					print('Gra konczy sie remisem!')
 					break
 				else:
-					turn = 'computer'
+					turn = 'Komputer'
 
 		else:
 			move = getComputerMove(theBoard, computerLetter)
@@ -155,7 +155,7 @@ while True:
 					print('Gra konczy sie remisem!')
 					break
 				else:
-					turn = 'player'
+					turn = 'Gracz'
 
 	if not playAgain():
 		break
