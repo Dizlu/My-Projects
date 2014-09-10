@@ -14,10 +14,11 @@ def getClues(guess, secretNum):
  	clue = []
 
  	for i in range(len(guess)):
- 		if guess[i] == secretNum[i]:
+ 		if i == secretNum[i]:
  			clue.append('Fermi')
- 		elif guess[i] in secretNum:
+ 		elif i in secretNum:
  			clue.append('Pico')
+
  	if len(clue) == 0:
  		return 'Bagels!'
 
@@ -25,7 +26,7 @@ def getClues(guess, secretNum):
  	return ' '.join(clue)
 
 def isOnlyDigits(num):
-	if num == " ":
+	if num == ' ':
 		return False
 
 	for i in num:
@@ -40,6 +41,8 @@ def playAgain():
 NUMDIGITS = 3
 MAXGUESS = 10
 
+
+
 print('I am thinking of a %s-digit number. Try to guess what it is.' % (NUMDIGITS))
 print('Here are some clues:')
 print('When I say:    That means:')
@@ -49,14 +52,15 @@ print('  Bagels       No digit is correct.')
 
 while True:
 	secretNum = getSecretNum(NUMDIGITS)
+	print secretNum
 	print('I have though up a number. You have %s guesses to get it.' %(MAXGUESS))
 
 	numGuesses = 1
 	while numGuesses <= MAXGUESS:
 		guess = ''
 		while len(guess) != NUMDIGITS or not isOnlyDigits(guess):
-			print ('Guess #%s: ' %(numGuesses))
-			guess = raw_input()
+			
+			guess = raw_input('Guess #%s: ' %(numGuesses))
 		
 		clue = getClues(guess, secretNum)
 		print(clue)
