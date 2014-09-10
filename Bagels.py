@@ -14,9 +14,9 @@ def getClues(guess, secretNum):
  	clue = []
 
  	for i in range(len(guess)):
- 		if i == secretNum[i]:
+ 		if guess[i] == secretNum[i]:
  			clue.append('Fermi')
- 		elif i in secretNum:
+ 		elif guess[i] in secretNum:
  			clue.append('Pico')
 
  	if len(clue) == 0:
