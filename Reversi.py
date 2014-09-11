@@ -73,7 +73,7 @@ def isValidMove(board, tile, xstart, ystart):
                     y -= ydirection
                     if x == xstart and y == ystart:
                         break
-                    tilesToFlip.append([x][y])
+                    tilesToFlip.append([x, y])
 
     board[xstart][ystart] = ' '
     if len(tilesToFlip) == 0:
@@ -118,7 +118,8 @@ def getScoreOfBoard(board):
 def enterPlayerTile():
     tile = ''
     while not (tile == 'X' or tile == 'O'):
-        tile = input('Do you want to be X or O?').upper()
+        print('Do you want to be X or O?')
+        tile = input().upper()
 
     if tile == 'X':
         return ['X', 'O']
@@ -167,7 +168,8 @@ def getPlayerMove(board, playerTile):
     DIGITS1TO8 = '1 2 3 4 5 6 7 8'.split()
 
     while True:
-        move = input('Enter your move or type quit to end the game, or hints to turn off/ on hints! ').lower()
+        print('Enter your move or type quit to end the game, or hints to turn off/ on hints! ')
+        move = input().lower()
         if move == 'quit':
             return 'quit'
         if move == 'hints':
@@ -259,4 +261,5 @@ while True:
         print('You lost. The computer beat you by %s points.' % (scores[computerTile] - scores[playerTile]))
     else:
         print('The game ended in a tie!')
-
+    if not playAgain():
+        break
