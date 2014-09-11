@@ -10,12 +10,11 @@ def drawBoard(board):
 
     print('    1   2   3   4   5   6   7   8')
     print(HLINE)
-    end = ' '
     for y in range(8):
         print(VLINE)
-        print(y + 1, end)
-        for x in range(8):  # zalozenie dla bledu przy None?
-            print('| %s' % (board[x][y]), end)
+        print(y+1, end = ' ')
+        for x in range(8):
+            print('| %s' % (board[x][y]), end = ' ')
         print('|')
         print(VLINE)
         print(HLINE)
@@ -53,17 +52,28 @@ def isValidMove(board, tile, xstart, ystart):
 
     tilesToFlip = []
     for xdirection, ydirection in [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]:
+        x, y = xstart, ystart
         x += xdirection
         y += ydirection
-        if not isOnBoard(x, y):
-            continue
-        if board[x][y] == tile:
-            while True:
-                x -= xdirection
-                y -= ydirection
-                if x == xstart and y == ystart:
+        if isOnBoard(x, y) and board[x][y] == otherTile:
+            x += xdirection
+            y += ydirection
+            if not isOnBoard(x, y):
+                continue
+            while board[x][y] == otherTile:
+                x += xdirection
+                y += ydirection
+                if not isOnBoard(x, y):
                     break
-                tilesToFlip.append([x][y])
+            if not isOnBoard(x, y):
+                continue
+            if board[x][y] == tile:
+                while True:
+                    x -= xdirection
+                    y -= ydirection
+                    if x == xstart and y == ystart:
+                        break
+                    tilesToFlip.append([x][y])
 
     board[xstart][ystart] = ' '
     if len(tilesToFlip) == 0:
@@ -93,7 +103,7 @@ def getValidMoves(board, tile):
     return validMoves
 
 
-def getScoreofBoard(board):
+def getScoreOfBoard(board):
     xscore = 0
     oscore = 0
     for x in range(8):
@@ -108,7 +118,7 @@ def getScoreofBoard(board):
 def enterPlayerTile():
     tile = ''
     while not (tile == 'X' or tile == 'O'):
-        tile = raw_input('Do you want to be X or O?').upper()
+        tile = input('Do you want to be X or O?').upper()
 
     if tile == 'X':
         return ['X', 'O']
@@ -124,7 +134,7 @@ def whoGoesFirst():
 
 
 def playAgain():
-    return raw_input('Do you want to play again? (yes or no) ').lower.startswith('y')
+    return input('Do you want to play again? (yes or no) ').lower.startswith('y')
 
 
 def makeMove(board, tile, xstart, ystart):
@@ -157,7 +167,7 @@ def getPlayerMove(board, playerTile):
     DIGITS1TO8 = '1 2 3 4 5 6 7 8'.split()
 
     while True:
-        move = raw_input('Enter your move or type quit to end the game, or hints to turn off/ on hints! ').lower()
+        move = input('Enter your move or type quit to end the game, or hints to turn off/ on hints! ').lower()
         if move == 'quit':
             return 'quit'
         if move == 'hints':
@@ -196,7 +206,7 @@ def getComputerMove(board, computerTile):
 
 
 def showPoints(playerTile, computerTile):
-    scores = getScoreofBoard(mainBoard)
+    scores = getScoreOfBoard(mainBoard)
     print('You have %s points. The computer has %s points.' % (scores[playerTile], scores[computerTile]))
 
 
@@ -226,6 +236,7 @@ while True:
                 continue
             else:
                 makeMove(mainBoard, playerTile, move[0], move[1])
+
             if getValidMoves(mainBoard, computerTile) == []:
                 break
             else:
@@ -233,16 +244,16 @@ while True:
         else:
             drawBoard(mainBoard)
             showPoints(playerTile, computerTile)
-            raw_input('Press Enter to see the computer\'s move.')
+            input('Press Enter to see the computer\'s move.')
             if getValidMoves(mainBoard, playerTile) == []:
                 break
             else:
                 turn == 'player'
 
     drawBoard(mainBoard)
-    scores = getScoreofBoard(mainBoard)
+    scores = getScoreOfBoard(mainBoard)
     print('X scored %s points. O scored %s points.' % (scores['X'], scores['O']))
-    if scored[playerTile] > scores[computerTile]:
+    if scores[playerTile] > scores[computerTile]:
         print('You beat the computer by %s point! Congratulations!' % (scores[playerTile] - scores[computerTile]))
     elif scores[playerTile] < scores[computerTile]:
         print('You lost. The computer beat you by %s points.' % (scores[computerTile] - scores[playerTile]))
