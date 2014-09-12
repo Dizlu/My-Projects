@@ -12,9 +12,9 @@ def drawBoard(board):
     print(HLINE)
     for y in range(8):
         print(VLINE)
-        print(y+1, end = ' ')
+        print(y+1, end=' ')
         for x in range(8):
-            print('| %s' % (board[x][y]), end = ' ')
+            print('| %s' % (board[x][y]), end=' ')
         print('|')
         print(VLINE)
         print(HLINE)
@@ -135,7 +135,7 @@ def whoGoesFirst():
 
 
 def playAgain():
-    return input('Do you want to play again? (yes or no) ').lower.startswith('y')
+    return input('Do you want to play again? (yes or no) ').lower().startswith('y')
 
 
 def makeMove(board, tile, xstart, ystart):
@@ -204,7 +204,7 @@ def getComputerMove(board, computerTile):
             if score > bestScore:
                 bestMove = [x, y]
                 bestScore = score
-        return bestMove
+    return bestMove
 
 
 def showPoints(playerTile, computerTile):
@@ -221,8 +221,9 @@ while True:
     showHints = False
     turn = whoGoesFirst()
     print('The' + turn + ' will go first.')
+
     while True:
-        if 'turn' == 'player':
+        if turn == 'player':
             if showHints:
                 validMovesBoard = getBoardWithValidMoves(mainBoard, playerTile)
                 drawBoard(validMovesBoard)
@@ -247,10 +248,13 @@ while True:
             drawBoard(mainBoard)
             showPoints(playerTile, computerTile)
             input('Press Enter to see the computer\'s move.')
+            x, y = getComputerMove(mainBoard, computerTile)
+            makeMove(mainBoard, computerTile, x, y)
+
             if getValidMoves(mainBoard, playerTile) == []:
                 break
             else:
-                turn == 'player'
+                turn = 'player'
 
     drawBoard(mainBoard)
     scores = getScoreOfBoard(mainBoard)
